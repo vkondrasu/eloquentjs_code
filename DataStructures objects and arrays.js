@@ -63,3 +63,53 @@ let arrayValue = [1, 2, 3, 4, 5];
 reverseArrayInPlace(arrayValue);
 console.log(arrayValue);
 // → [5, 4, 3, 2, 1]
+
+/*
+  3. A list
+*/
+
+function arrayToList(ar){
+  let list;
+  list = {value:ar[0], rest: null};
+  var temp = list;
+  for (var i = 1; i < ar.length; i++){
+    list.rest = {value:ar[i], rest:null};
+    list = list.rest;
+  }
+  return temp;
+}
+
+function listToArray(list){
+  var res = [];
+  while(list != null){
+    res.push(list.value);
+    list = list.rest;    
+  }  
+  return res;
+}
+
+function prepend(val, li){
+  var lis = {value:0, rest:undefined};
+  lis.value = val;
+  lis.rest = li;
+  return lis;
+}
+
+function nth(list, index){
+  var n = 0;
+  while(n < index){
+    list = list.rest;
+    ++n;
+  }
+  
+  return list.value;
+}
+
+console.log(arrayToList([10, 20]));
+// → {value: 10, rest: {value: 20, rest: null}}
+console.log(listToArray(arrayToList([10, 20, 30])));
+// → [10, 20, 30]
+console.log(prepend(10, prepend(20, null)));
+// → {value: 10, rest: {value: 20, rest: null}}
+console.log(nth(arrayToList([10, 20, 30, 40, 50, 60, 70, 80, 90, 123]), 1));
+// → 20
